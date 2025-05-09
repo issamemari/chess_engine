@@ -76,57 +76,15 @@ func (cb *ArrayChessBoard) getAttackedSquares(sq Square) []Square {
 	attackedSquares := []Square{}
 
 	if piece.Name == Pawn {
-		if piece.Color == White {
-			attackedSquares = []Square{
-				{Rank: sq.Rank + 1, File: sq.File - 1},
-				{Rank: sq.Rank + 1, File: sq.File + 1},
-			}
-		} else {
-			attackedSquares = []Square{
-				{Rank: sq.Rank - 1, File: sq.File - 1},
-				{Rank: sq.Rank - 1, File: sq.File + 1},
-			}
-		}
+		attackedSquares = cb.getPawnAttackedSquares(sq, piece.Color)
 	}
 
 	if piece.Name == Knight {
-		attackedSquares = []Square{
-			{Rank: sq.Rank + 2, File: sq.File + 1},
-			{Rank: sq.Rank + 2, File: sq.File - 1},
-			{Rank: sq.Rank - 2, File: sq.File + 1},
-			{Rank: sq.Rank - 2, File: sq.File - 1},
-			{Rank: sq.Rank + 1, File: sq.File + 2},
-			{Rank: sq.Rank + 1, File: sq.File - 2},
-			{Rank: sq.Rank - 1, File: sq.File + 2},
-			{Rank: sq.Rank - 1, File: sq.File - 2},
-		}
+		attackedSquares = cb.getKnightAttackedSquares(sq)
 	}
 
 	if piece.Name == Bishop || piece.Name == Queen {
-		currentSquare := sq
-		for currentSquare.Rank < BoardHeight && currentSquare.File < BoardWidth {
-			currentSquare.Rank++
-			currentSquare.File++
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
-		currentSquare = sq
-		for currentSquare.Rank < BoardHeight && currentSquare.File >= 0 {
-			currentSquare.Rank--
-			currentSquare.File--
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
+		attackedSquares = cb.getDiagonallyAttackedSquares(sq)
 	}
 
 	if piece.Name == Rook || piece.Name == Queen {
@@ -197,6 +155,56 @@ func (cb *ArrayChessBoard) getAttackedSquares(sq Square) []Square {
 	}
 
 	return validAttackedSquares
+}
+
+func (cb *ArrayChessBoard) getPawnAttackedSquares(sq Square, color Color) []Square {
+	if color == White {
+		return []Square{
+			{Rank: sq.Rank + 1, File: sq.File - 1},
+			{Rank: sq.Rank + 1, File: sq.File + 1},
+		}
+	} else {
+		return []Square{
+			{Rank: sq.Rank - 1, File: sq.File - 1},
+			{Rank: sq.Rank - 1, File: sq.File + 1},
+		}
+	}
+}
+
+func (cb *ArrayChessBoard) getKnightAttackedSquares(sq Square) []Square {
+	return []Square{
+		{Rank: sq.Rank + 2, File: sq.File + 1},
+		{Rank: sq.Rank + 2, File: sq.File - 1},
+		{Rank: sq.Rank - 2, File: sq.File + 1},
+		{Rank: sq.Rank - 2, File: sq.File - 1},
+		{Rank: sq.Rank + 1, File: sq.File + 2},
+		{Rank: sq.Rank + 1, File: sq.File - 2},
+		{Rank: sq.Rank - 1, File: sq.File + 2},
+		{Rank: sq.Rank - 1, File: sq.File - 2},
+	}
+}
+
+func (cb *ArrayChessBoard) getDiagonallyAttackedSquares(sq Square) []Square {
+	attackedSquares := []Square{}
+	currentSquare := sq
+	for currentSquare.Rank < BoardHeight && currentSquare.File < BoardWidth {
+		currentSquare.Rank++
+		currentSquare.File++
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	currentSquare = sq
+	for currentSquare.Rank >= 0 && currentSquare.File >= 0 {
+		currentSquare.Rank--
+		currentSquare.File--
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	return attackedSquares
 }
 
 func (cb *ArrayChessBoard) validateAttackedSquare(sq Square, attackingColor Color) bool {
