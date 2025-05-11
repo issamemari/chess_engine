@@ -1,6 +1,536 @@
-DEBUG [2025-05-11 10:20:55] received command uci
-DEBUG [2025-05-11 10:20:55] handling command: uci
-DEBUG [2025-05-11 10:20:55] engine responded: id name JesusChess
-DEBUG [2025-05-11 10:20:55] engine responded: id author Issa Memari
-DEBUG [2025-05-11 10:20:55] engine responded: uciok
-DEBUG [2025-05-11 10:20:55] command processed uci
+DEBUG [2025-05-11 11:28:34] received command: uci
+DEBUG [2025-05-11 11:28:34] engine responded: id name JesusChess
+DEBUG [2025-05-11 11:28:34] engine responded: id author Issa Memari
+DEBUG [2025-05-11 11:28:34] engine responded: uciok
+DEBUG [2025-05-11 11:28:34] command processed: uci
+DEBUG [2025-05-11 11:28:34] received command: isready
+DEBUG [2025-05-11 11:28:34] engine responded: readyok
+DEBUG [2025-05-11 11:28:34] command processed: isready
+DEBUG [2025-05-11 11:28:34] received command: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4
+DEBUG [2025-05-11 11:28:34] making move: e2e4
+DEBUG [2025-05-11 11:28:34] side to move: W
+DEBUG [2025-05-11 11:28:34] making move:  from file 4, rank 1 to file 4, rank 3
+DEBUG [2025-05-11 11:28:34] flipping side to move: W
+DEBUG [2025-05-11 11:28:34] flipped side to move: B
+DEBUG [2025-05-11 11:28:34] move made: e2e4
+DEBUG [2025-05-11 11:28:34] side to move: B
+DEBUG [2025-05-11 11:28:34] command processed: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4
+DEBUG [2025-05-11 11:28:34] received command: go wtime 178300 btime 182000 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:34] Generating legal moves for side: B
+DEBUG [2025-05-11 11:28:34] generated move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 4, rank 6 to file 4, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 5, rank 6 to file 5, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:34] generated move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:34] generated move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 4, rank 6 to file 4, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 5, rank 6 to file 5, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:34] legal move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:34] legal move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:34] random move selected: P from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:34] best move found: e7e6
+DEBUG [2025-05-11 11:28:34] engine responded: info depth 1 multipv 1 score cp -27 pv e7e6
+DEBUG [2025-05-11 11:28:34] engine responded: bestmove e7e6
+DEBUG [2025-05-11 11:28:34] command processed: go wtime 178300 btime 182000 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:35] received command: stop
+DEBUG [2025-05-11 11:28:35] stop command received
+DEBUG [2025-05-11 11:28:35] engine responded: stop
+DEBUG [2025-05-11 11:28:35] command processed: stop
+DEBUG [2025-05-11 11:28:35] received command: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4
+DEBUG [2025-05-11 11:28:35] making move: e2e4
+DEBUG [2025-05-11 11:28:35] side to move: W
+DEBUG [2025-05-11 11:28:35] making move:  from file 4, rank 1 to file 4, rank 3
+DEBUG [2025-05-11 11:28:35] flipping side to move: W
+DEBUG [2025-05-11 11:28:35] flipped side to move: B
+DEBUG [2025-05-11 11:28:35] move made: e2e4
+DEBUG [2025-05-11 11:28:35] side to move: B
+DEBUG [2025-05-11 11:28:35] making move: e7e6
+DEBUG [2025-05-11 11:28:35] side to move: B
+DEBUG [2025-05-11 11:28:35] making move:  from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:35] flipping side to move: B
+DEBUG [2025-05-11 11:28:35] flipped side to move: W
+DEBUG [2025-05-11 11:28:35] move made: e7e6
+DEBUG [2025-05-11 11:28:35] side to move: W
+DEBUG [2025-05-11 11:28:35] making move: d2d4
+DEBUG [2025-05-11 11:28:35] side to move: W
+DEBUG [2025-05-11 11:28:35] making move:  from file 3, rank 1 to file 3, rank 3
+DEBUG [2025-05-11 11:28:35] flipping side to move: W
+DEBUG [2025-05-11 11:28:35] flipped side to move: B
+DEBUG [2025-05-11 11:28:35] move made: d2d4
+DEBUG [2025-05-11 11:28:35] side to move: B
+DEBUG [2025-05-11 11:28:35] command processed: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4
+DEBUG [2025-05-11 11:28:35] received command: go wtime 178800 btime 183900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:35] Generating legal moves for side: B
+DEBUG [2025-05-11 11:28:35] generated move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 4, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 5, rank 6 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] generated move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] generated move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:35] generated move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:35] generated move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] generated move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] generated move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:35] generated move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:35] generated move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] legal move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 4, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 5, rank 6 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] legal move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] legal move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:35] legal move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:35] legal move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] legal move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:35] legal move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:35] legal move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:35] legal move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:35] random move selected: P from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:35] best move found: f7f5
+DEBUG [2025-05-11 11:28:35] engine responded: info depth 1 multipv 1 score cp -27 pv f7f5
+DEBUG [2025-05-11 11:28:35] engine responded: bestmove f7f5
+DEBUG [2025-05-11 11:28:35] command processed: go wtime 178800 btime 183900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:37] received command: stop
+DEBUG [2025-05-11 11:28:37] stop command received
+DEBUG [2025-05-11 11:28:37] engine responded: stop
+DEBUG [2025-05-11 11:28:37] command processed: stop
+DEBUG [2025-05-11 11:28:37] received command: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5
+DEBUG [2025-05-11 11:28:37] making move: e2e4
+DEBUG [2025-05-11 11:28:37] side to move: W
+DEBUG [2025-05-11 11:28:37] making move:  from file 4, rank 1 to file 4, rank 3
+DEBUG [2025-05-11 11:28:37] flipping side to move: W
+DEBUG [2025-05-11 11:28:37] flipped side to move: B
+DEBUG [2025-05-11 11:28:37] move made: e2e4
+DEBUG [2025-05-11 11:28:37] side to move: B
+DEBUG [2025-05-11 11:28:37] making move: e7e6
+DEBUG [2025-05-11 11:28:37] side to move: B
+DEBUG [2025-05-11 11:28:37] making move:  from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:37] flipping side to move: B
+DEBUG [2025-05-11 11:28:37] flipped side to move: W
+DEBUG [2025-05-11 11:28:37] move made: e7e6
+DEBUG [2025-05-11 11:28:37] side to move: W
+DEBUG [2025-05-11 11:28:37] making move: d2d4
+DEBUG [2025-05-11 11:28:37] side to move: W
+DEBUG [2025-05-11 11:28:37] making move:  from file 3, rank 1 to file 3, rank 3
+DEBUG [2025-05-11 11:28:37] flipping side to move: W
+DEBUG [2025-05-11 11:28:37] flipped side to move: B
+DEBUG [2025-05-11 11:28:37] move made: d2d4
+DEBUG [2025-05-11 11:28:37] side to move: B
+DEBUG [2025-05-11 11:28:37] making move: f7f5
+DEBUG [2025-05-11 11:28:37] side to move: B
+DEBUG [2025-05-11 11:28:37] making move:  from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:37] flipping side to move: B
+DEBUG [2025-05-11 11:28:37] flipped side to move: W
+DEBUG [2025-05-11 11:28:37] move made: f7f5
+DEBUG [2025-05-11 11:28:37] side to move: W
+DEBUG [2025-05-11 11:28:37] making move: e4f5
+DEBUG [2025-05-11 11:28:37] side to move: W
+DEBUG [2025-05-11 11:28:37] making move:  from file 4, rank 3 to file 5, rank 4
+DEBUG [2025-05-11 11:28:37] flipping side to move: W
+DEBUG [2025-05-11 11:28:37] flipped side to move: B
+DEBUG [2025-05-11 11:28:37] move made: e4f5
+DEBUG [2025-05-11 11:28:37] side to move: B
+DEBUG [2025-05-11 11:28:37] command processed: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5
+DEBUG [2025-05-11 11:28:37] received command: go wtime 179300 btime 185900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:37] Generating legal moves for side: B
+DEBUG [2025-05-11 11:28:37] generated move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 4, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 4, rank 5 to file 5, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] generated move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] generated move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:37] generated move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:37] generated move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] generated move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:37] generated move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:37] generated move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:37] generated move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] generated move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:37] legal move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 2, rank 6 to file 2, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 2, rank 6 to file 2, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 4, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 4, rank 5 to file 5, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: N from file 1, rank 7 to file 0, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] legal move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] legal move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:37] legal move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:37] legal move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] legal move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:37] legal move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:37] legal move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:37] legal move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:37] legal move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:37] random move selected: N from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:37] best move found: b8c6
+DEBUG [2025-05-11 11:28:37] engine responded: info depth 1 multipv 1 score cp -27 pv b8c6
+DEBUG [2025-05-11 11:28:37] engine responded: bestmove b8c6
+DEBUG [2025-05-11 11:28:37] command processed: go wtime 179300 btime 185900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:39] received command: stop
+DEBUG [2025-05-11 11:28:39] stop command received
+DEBUG [2025-05-11 11:28:39] engine responded: stop
+DEBUG [2025-05-11 11:28:39] command processed: stop
+DEBUG [2025-05-11 11:28:39] received command: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5 b8c6 f5e6
+DEBUG [2025-05-11 11:28:39] making move: e2e4
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move:  from file 4, rank 1 to file 4, rank 3
+DEBUG [2025-05-11 11:28:39] flipping side to move: W
+DEBUG [2025-05-11 11:28:39] flipped side to move: B
+DEBUG [2025-05-11 11:28:39] move made: e2e4
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move: e7e6
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move:  from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:39] flipping side to move: B
+DEBUG [2025-05-11 11:28:39] flipped side to move: W
+DEBUG [2025-05-11 11:28:39] move made: e7e6
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move: d2d4
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move:  from file 3, rank 1 to file 3, rank 3
+DEBUG [2025-05-11 11:28:39] flipping side to move: W
+DEBUG [2025-05-11 11:28:39] flipped side to move: B
+DEBUG [2025-05-11 11:28:39] move made: d2d4
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move: f7f5
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move:  from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:39] flipping side to move: B
+DEBUG [2025-05-11 11:28:39] flipped side to move: W
+DEBUG [2025-05-11 11:28:39] move made: f7f5
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move: e4f5
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move:  from file 4, rank 3 to file 5, rank 4
+DEBUG [2025-05-11 11:28:39] flipping side to move: W
+DEBUG [2025-05-11 11:28:39] flipped side to move: B
+DEBUG [2025-05-11 11:28:39] move made: e4f5
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move: b8c6
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] making move:  from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:39] flipping side to move: B
+DEBUG [2025-05-11 11:28:39] flipped side to move: W
+DEBUG [2025-05-11 11:28:39] move made: b8c6
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move: f5e6
+DEBUG [2025-05-11 11:28:39] side to move: W
+DEBUG [2025-05-11 11:28:39] making move:  from file 5, rank 4 to file 4, rank 5
+DEBUG [2025-05-11 11:28:39] flipping side to move: W
+DEBUG [2025-05-11 11:28:39] flipped side to move: B
+DEBUG [2025-05-11 11:28:39] move made: f5e6
+DEBUG [2025-05-11 11:28:39] side to move: B
+DEBUG [2025-05-11 11:28:39] command processed: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5 b8c6 f5e6
+DEBUG [2025-05-11 11:28:39] received command: go wtime 179400 btime 187900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:39] Generating legal moves for side: B
+DEBUG [2025-05-11 11:28:39] generated move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: P from file 3, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 1, rank 7
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 3, rank 3
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 1, rank 3
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: N from file 2, rank 5 to file 0, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] generated move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] generated move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:39] generated move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:39] generated move: R from file 0, rank 7 to file 1, rank 7
+DEBUG [2025-05-11 11:28:39] generated move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] generated move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:39] generated move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:39] generated move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:39] generated move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] generated move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: P from file 3, rank 6 to file 3, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 3, rank 6 to file 3, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: P from file 3, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 6, rank 6 to file 6, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 1, rank 7
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 3, rank 3
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 1, rank 3
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: N from file 2, rank 5 to file 0, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:39] legal move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:39] legal move: R from file 0, rank 7 to file 1, rank 7
+DEBUG [2025-05-11 11:28:39] legal move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:39] legal move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:39] legal move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:39] legal move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:39] legal move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:39] random move selected: P from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:39] best move found: g7g6
+DEBUG [2025-05-11 11:28:39] engine responded: info depth 1 multipv 1 score cp -27 pv g7g6
+DEBUG [2025-05-11 11:28:39] engine responded: bestmove g7g6
+DEBUG [2025-05-11 11:28:39] command processed: go wtime 179400 btime 187900 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:40] received command: stop
+DEBUG [2025-05-11 11:28:40] stop command received
+DEBUG [2025-05-11 11:28:40] engine responded: stop
+DEBUG [2025-05-11 11:28:40] command processed: stop
+DEBUG [2025-05-11 11:28:40] received command: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5 b8c6 f5e6 g7g6 e6d7
+DEBUG [2025-05-11 11:28:40] making move: e2e4
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move:  from file 4, rank 1 to file 4, rank 3
+DEBUG [2025-05-11 11:28:40] flipping side to move: W
+DEBUG [2025-05-11 11:28:40] flipped side to move: B
+DEBUG [2025-05-11 11:28:40] move made: e2e4
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move: e7e6
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move:  from file 4, rank 6 to file 4, rank 5
+DEBUG [2025-05-11 11:28:40] flipping side to move: B
+DEBUG [2025-05-11 11:28:40] flipped side to move: W
+DEBUG [2025-05-11 11:28:40] move made: e7e6
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move: d2d4
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move:  from file 3, rank 1 to file 3, rank 3
+DEBUG [2025-05-11 11:28:40] flipping side to move: W
+DEBUG [2025-05-11 11:28:40] flipped side to move: B
+DEBUG [2025-05-11 11:28:40] move made: d2d4
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move: f7f5
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move:  from file 5, rank 6 to file 5, rank 4
+DEBUG [2025-05-11 11:28:40] flipping side to move: B
+DEBUG [2025-05-11 11:28:40] flipped side to move: W
+DEBUG [2025-05-11 11:28:40] move made: f7f5
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move: e4f5
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move:  from file 4, rank 3 to file 5, rank 4
+DEBUG [2025-05-11 11:28:40] flipping side to move: W
+DEBUG [2025-05-11 11:28:40] flipped side to move: B
+DEBUG [2025-05-11 11:28:40] move made: e4f5
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move: b8c6
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move:  from file 1, rank 7 to file 2, rank 5
+DEBUG [2025-05-11 11:28:40] flipping side to move: B
+DEBUG [2025-05-11 11:28:40] flipped side to move: W
+DEBUG [2025-05-11 11:28:40] move made: b8c6
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move: f5e6
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move:  from file 5, rank 4 to file 4, rank 5
+DEBUG [2025-05-11 11:28:40] flipping side to move: W
+DEBUG [2025-05-11 11:28:40] flipped side to move: B
+DEBUG [2025-05-11 11:28:40] move made: f5e6
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move: g7g6
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] making move:  from file 6, rank 6 to file 6, rank 5
+DEBUG [2025-05-11 11:28:40] flipping side to move: B
+DEBUG [2025-05-11 11:28:40] flipped side to move: W
+DEBUG [2025-05-11 11:28:40] move made: g7g6
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move: e6d7
+DEBUG [2025-05-11 11:28:40] side to move: W
+DEBUG [2025-05-11 11:28:40] making move:  from file 4, rank 5 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] flipping side to move: W
+DEBUG [2025-05-11 11:28:40] flipped side to move: B
+DEBUG [2025-05-11 11:28:40] move made: e6d7
+DEBUG [2025-05-11 11:28:40] side to move: B
+DEBUG [2025-05-11 11:28:40] command processed: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 moves e2e4 e7e6 d2d4 f7f5 e4f5 b8c6 f5e6 g7g6 e6d7
+DEBUG [2025-05-11 11:28:40] received command: go wtime 180500 btime 189800 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:40] Generating legal moves for side: B
+DEBUG [2025-05-11 11:28:40] generated move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: P from file 6, rank 5 to file 6, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 1, rank 7
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 3, rank 3
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 1, rank 3
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: N from file 2, rank 5 to file 0, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: B from file 2, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 6, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:40] generated move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:40] generated move: R from file 0, rank 7 to file 1, rank 7
+DEBUG [2025-05-11 11:28:40] generated move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:40] generated move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:40] generated move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:40] generated move: Q from file 3, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:40] generated move: K from file 4, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: P from file 0, rank 6 to file 0, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: P from file 1, rank 6 to file 1, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: P from file 1, rank 6 to file 1, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: P from file 6, rank 5 to file 6, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: P from file 7, rank 6 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: P from file 7, rank 6 to file 7, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 1, rank 7
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 3, rank 3
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 1, rank 3
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 4, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: N from file 2, rank 5 to file 0, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: N from file 6, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: N from file 6, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: N from file 6, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: B from file 2, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 6, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 7, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 3, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 2, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 1, rank 3
+DEBUG [2025-05-11 11:28:40] legal move: B from file 5, rank 7 to file 0, rank 2
+DEBUG [2025-05-11 11:28:40] legal move: R from file 0, rank 7 to file 1, rank 7
+DEBUG [2025-05-11 11:28:40] legal move: Q from file 3, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: Q from file 3, rank 7 to file 5, rank 5
+DEBUG [2025-05-11 11:28:40] legal move: Q from file 3, rank 7 to file 6, rank 4
+DEBUG [2025-05-11 11:28:40] legal move: Q from file 3, rank 7 to file 7, rank 3
+DEBUG [2025-05-11 11:28:40] legal move: Q from file 3, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: K from file 4, rank 7 to file 4, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: K from file 4, rank 7 to file 5, rank 6
+DEBUG [2025-05-11 11:28:40] legal move: K from file 4, rank 7 to file 3, rank 6
+DEBUG [2025-05-11 11:28:40] random move selected: P from file 0, rank 6 to file 0, rank 4
+DEBUG [2025-05-11 11:28:40] best move found: a7a5
+DEBUG [2025-05-11 11:28:40] engine responded: info depth 1 multipv 1 score cp -27 pv a7a5
+DEBUG [2025-05-11 11:28:40] engine responded: bestmove a7a5
+DEBUG [2025-05-11 11:28:40] command processed: go wtime 180500 btime 189800 winc 2000 binc 2000
+DEBUG [2025-05-11 11:28:51] received command: quit
+DEBUG [2025-05-11 11:28:51] quitting

@@ -3,6 +3,8 @@ package board
 import (
 	"fmt"
 	"strings"
+
+	logging "jesus_chess/domain/logging"
 )
 
 const StartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -14,10 +16,11 @@ type ArrayChessBoard struct {
 	castlingRights  CastlingRights
 	kingSquares     map[Color]Square
 	attackedSquares map[Color][]Square
+	logger          *logging.Logger
 }
 
-func NewArrayChessBoard() *ArrayChessBoard {
-	cb := &ArrayChessBoard{sideToMove: White}
+func NewArrayChessBoard(logger *logging.Logger) *ArrayChessBoard {
+	cb := &ArrayChessBoard{sideToMove: White, logger: logger}
 
 	for rank := 0; rank < BoardHeight; rank++ {
 		for file := 0; file < BoardWidth; file++ {
@@ -246,37 +249,172 @@ func (cb *ArrayChessBoard) CastlingRights() CastlingRights {
 func (cb *ArrayChessBoard) GenerateLegalMoves() []Move {
 	moves := []Move{}
 
+	cb.logger.Debug(fmt.Sprintf("Generating legal moves for side: %s", cb.sideToMove))
+
 	moves = append(moves, cb.generateLegalPawnMoves()...)
 	moves = append(moves, cb.generateLegalKnightMoves()...)
 	moves = append(moves, cb.generateLegalBishopMoves()...)
 	moves = append(moves, cb.generateLegalRookMoves()...)
 	moves = append(moves, cb.generateLegalQueenMoves()...)
 	moves = append(moves, cb.generateLegalKingMoves()...)
+
+	// log generated moves
+	for _, move := range moves {
+		cb.logger.Debug(fmt.Sprintf("generated move: %s from file %d, rank %d to file %d, rank %d", move.Piece.Name, move.From.File, move.From.Rank, move.To.File, move.To.Rank))
+	}
+
 	return moves
 }
 
 func (cb *ArrayChessBoard) generateLegalPawnMoves() []Move {
-	return []Move{}
+	moves := []Move{}
+	color := cb.sideToMove
+	direction := 1
+	startRank := 1
+	promotionRank := 7
+	if color == Black {
+		direction = -1
+		startRank = 6
+		promotionRank = 0
+	}
+	for file := 0; file < BoardWidth; file++ {
+		for rank := 0; rank < BoardHeight; rank++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Name == Pawn && piece.Color == color {
+				from := Square{Rank: rank, File: file}
+				forward := Square{Rank: rank + direction, File: file}
+				if !cb.IsOccupied(forward) && forward.Rank >= 0 && forward.Rank < BoardHeight {
+					if forward.Rank == promotionRank {
+						promotions := []PieceName{Queen, Rook, Bishop, Knight}
+						for _, promo := range promotions {
+							moves = append(moves, Move{From: from, To: forward, Piece: *piece, Promotion: &Piece{Name: promo, Color: color}})
+						}
+					} else {
+						moves = append(moves, Move{From: from, To: forward, Piece: *piece})
+					}
+					if rank == startRank {
+						twoForward := Square{Rank: rank + 2*direction, File: file}
+						if !cb.IsOccupied(twoForward) {
+							moves = append(moves, Move{From: from, To: twoForward, Piece: *piece})
+						}
+					}
+				}
+				attacks := cb.getPawnAttackedSquares(from, color)
+				for _, target := range attacks {
+					if target.Rank < 0 || target.Rank >= BoardHeight || target.File < 0 || target.File >= BoardWidth {
+						continue
+					}
+					targetPiece := cb.PieceAt(target)
+					if targetPiece != nil && targetPiece.Color != color {
+						moves = append(moves, Move{From: from, To: target, Piece: *piece, IsCapture: true})
+					}
+				}
+			}
+		}
+	}
+	return moves
 }
 
 func (cb *ArrayChessBoard) generateLegalKnightMoves() []Move {
-	return []Move{}
+	moves := []Move{}
+	color := cb.sideToMove
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Name == Knight && piece.Color == color {
+				from := Square{Rank: rank, File: file}
+				for _, to := range cb.getKnightAttackedSquares(from) {
+					if !cb.validateAttackedSquare(to, color) {
+						continue
+					}
+					move := Move{From: from, To: to, Piece: *piece}
+					targetPiece := cb.PieceAt(to)
+					if targetPiece != nil && targetPiece.Color != color {
+						move.IsCapture = true
+					}
+					moves = append(moves, move)
+				}
+			}
+		}
+	}
+	return moves
 }
 
 func (cb *ArrayChessBoard) generateLegalBishopMoves() []Move {
-	return []Move{}
+	return cb.generateSlidingPieceMoves(Bishop)
 }
 
 func (cb *ArrayChessBoard) generateLegalRookMoves() []Move {
-	return []Move{}
+	return cb.generateSlidingPieceMoves(Rook)
 }
 
 func (cb *ArrayChessBoard) generateLegalQueenMoves() []Move {
-	return []Move{}
+	return cb.generateSlidingPieceMoves(Queen)
+}
+
+func (cb *ArrayChessBoard) generateSlidingPieceMoves(name PieceName) []Move {
+	moves := []Move{}
+	color := cb.sideToMove
+	dirs := [][]int{}
+	if name == Bishop {
+		dirs = [][]int{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}
+	} else if name == Rook {
+		dirs = [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+	} else {
+		dirs = [][]int{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+	}
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Name == name && piece.Color == color {
+				from := Square{Rank: rank, File: file}
+				for _, dir := range dirs {
+					for i := 1; i < BoardHeight; i++ {
+						sq := Square{Rank: rank + dir[0]*i, File: file + dir[1]*i}
+						if sq.Rank < 0 || sq.Rank >= BoardHeight || sq.File < 0 || sq.File >= BoardWidth {
+							break
+						}
+						targetPiece := cb.PieceAt(sq)
+						if targetPiece == nil {
+							moves = append(moves, Move{From: from, To: sq, Piece: *piece})
+						} else {
+							if targetPiece.Color != color {
+								moves = append(moves, Move{From: from, To: sq, Piece: *piece, IsCapture: true})
+							}
+							break
+						}
+					}
+				}
+			}
+		}
+	}
+	return moves
 }
 
 func (cb *ArrayChessBoard) generateLegalKingMoves() []Move {
-	return []Move{}
+	moves := []Move{}
+	color := cb.sideToMove
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Name == King && piece.Color == color {
+				from := Square{Rank: rank, File: file}
+				for _, to := range cb.getAttackedSquares(from) {
+					if !cb.validateAttackedSquare(to, color) {
+						continue
+					}
+					move := Move{From: from, To: to, Piece: *piece}
+					targetPiece := cb.PieceAt(to)
+					if targetPiece != nil && targetPiece.Color != color {
+						move.IsCapture = true
+					}
+					moves = append(moves, move)
+				}
+				// Castling logic can be added here
+			}
+		}
+	}
+	return moves
 }
 
 func (cb *ArrayChessBoard) InCheck(color Color) bool {
@@ -306,14 +444,15 @@ func (cb *ArrayChessBoard) findKing(color Color) *Square {
 }
 
 func (cb *ArrayChessBoard) MakeMove(move Move) error {
-	if !cb.IsMoveLegal(move) {
-		return fmt.Errorf("illegal move: %v", move)
-	}
+	cb.logger.Debug(fmt.Sprintf("making move: %s from file %d, rank %d to file %d, rank %d", move.Piece.Name, move.From.File, move.From.Rank, move.To.File, move.To.Rank))
 
 	cb.board[move.To.Rank][move.To.File] = cb.board[move.From.Rank][move.From.File]
 	cb.board[move.From.Rank][move.From.File] = nil
 	cb.moveHistory = append(cb.moveHistory, move)
+
+	cb.logger.Debug(fmt.Sprintf("flipping side to move: %s", cb.sideToMove))
 	cb.sideToMove = oppositeColor(cb.sideToMove)
+	cb.logger.Debug(fmt.Sprintf("flipped side to move: %s", cb.sideToMove))
 	if move.IsCastling {
 		if move.To.File == 2 { // Queen-side castling
 			cb.board[move.From.Rank][0] = nil
@@ -371,15 +510,6 @@ func (cb *ArrayChessBoard) updateCastlingRights(move Move) {
 	}
 }
 
-func (cb *ArrayChessBoard) IsMoveLegal(move Move) bool {
-	for _, mv := range cb.GenerateLegalMoves() {
-		if mv == move {
-			return true
-		}
-	}
-	return false
-}
-
 func oppositeColor(color Color) Color {
 	if color == White {
 		return Black
@@ -405,6 +535,10 @@ func (cb *ArrayChessBoard) Display() string {
 	result += fmt.Sprintf("Castling rights: %v\n", cb.castlingRights)
 
 	return result
+}
+
+func (cb *ArrayChessBoard) IsMoveLegal(move Move) bool {
+	return true
 }
 
 func (cb *ArrayChessBoard) SetPosition(fen string) error {

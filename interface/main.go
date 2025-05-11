@@ -5,6 +5,7 @@ import (
 	"fmt"
 	board "jesus_chess/domain/board"
 	logging "jesus_chess/domain/logging"
+	search "jesus_chess/domain/search"
 	uci "jesus_chess/interface/uci"
 	"os"
 )
@@ -17,8 +18,9 @@ func main() {
 	}
 	defer logger.Close()
 
-	board := board.NewArrayChessBoard()
-	handler := uci.NewUCIHandler(logger, board)
+	board := board.NewArrayChessBoard(logger)
+	moveFinder := search.NewRandomMoveFinder(logger)
+	handler := uci.NewUCIHandler(logger, board, moveFinder)
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
