@@ -400,11 +400,83 @@ func (cb *ArrayChessBoard) generateLegalKingMoves() []Move {
 					}
 					moves = append(moves, move)
 				}
-				// Castling logic can be added here
+				if cb.InCheck(color) {
+					continue
+				}
+
+				r := from.Rank
+				rights := cb.castlingRights
+
+				// King-side castling
+				if (color == White && rights.WhiteKingSide) || (color == Black && rights.BlackKingSide) {
+					squares := []Square{{Rank: r, File: 5}, {Rank: r, File: 6}}
+					if cb.isCastlingPathClearAndSafe(squares, color) && cb.board[r][7] != nil && cb.board[r][7].Name == Rook {
+						moves = append(moves, Move{
+							From:                   from,
+							To:                     Square{Rank: r, File: 6},
+							Piece:                  *piece,
+							IsCastling:             true,
+							PreviousCastlingRights: cb.castlingRights,
+						})
+					}
+				}
+
+				// Queen-side castling
+				if (color == White && rights.WhiteQueenSide) || (color == Black && rights.BlackQueenSide) {
+					squares := []Square{{Rank: r, File: 3}, {Rank: r, File: 2}, {Rank: r, File: 1}}
+					if cb.isCastlingPathClearAndSafe(squares[:2], color) && cb.board[r][0] != nil && cb.board[r][0].Name == Rook {
+						// We include file 1 in clearance but not for check
+						if !cb.IsOccupied(squares[2]) {
+							moves = append(moves, Move{
+								From:                   from,
+								To:                     Square{Rank: r, File: 2},
+								Piece:                  *piece,
+								IsCastling:             true,
+								PreviousCastlingRights: cb.castlingRights,
+							})
+						}
+					}
+				}
 			}
 		}
 	}
 	return moves
+}
+
+func (cb *ArrayChessBoard) isCastlingPathClearAndSafe(squares []Square, color Color) bool {
+	for _, sq := range squares {
+		if cb.IsOccupied(sq) {
+			return false
+		}
+		// Temporarily move king to check for attacks
+		original := cb.sideToMove
+		cb.sideToMove = color
+		inCheck := cb.squareAttackedBy(sq, oppositeColor(color))
+		cb.sideToMove = original
+		if inCheck {
+			return false
+		}
+	}
+	return true
+}
+
+// Simple method to check if a square is attacked
+func (cb *ArrayChessBoard) squareAttackedBy(sq Square, attacker Color) bool {
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Color == attacker {
+				from := Square{Rank: rank, File: file}
+				attacks := cb.getAttackedSquares(from)
+				for _, a := range attacks {
+					if a == sq {
+						return true
+					}
+				}
+			}
+		}
+	}
+	return false
 }
 
 func (cb *ArrayChessBoard) InCheck(color Color) bool {
@@ -413,12 +485,8 @@ func (cb *ArrayChessBoard) InCheck(color Color) bool {
 		return false
 	}
 
-	for _, mv := range cb.GenerateLegalMoves() {
-		if mv.To == *kingSquare && mv.CapturedPiece != nil && mv.CapturedPiece.Color == color {
-			return true
-		}
-	}
-	return false
+	inCheck := cb.squareAttackedBy(*kingSquare, oppositeColor(color))
+	return inCheck
 }
 
 func (cb *ArrayChessBoard) findKing(color Color) *Square {
