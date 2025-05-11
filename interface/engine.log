@@ -1,0 +1,6 @@
+DEBUG [2025-05-11 10:20:55] received command uci
+DEBUG [2025-05-11 10:20:55] handling command: uci
+DEBUG [2025-05-11 10:20:55] engine responded: id name JesusChess
+DEBUG [2025-05-11 10:20:55] engine responded: id author Issa Memari
+DEBUG [2025-05-11 10:20:55] engine responded: uciok
+DEBUG [2025-05-11 10:20:55] command processed uci

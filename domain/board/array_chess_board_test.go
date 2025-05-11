@@ -1,4 +1,4 @@
-package chess_engine
+package board
 
 import (
 	"testing"
