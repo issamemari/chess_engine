@@ -1,5 +1,12 @@
 package chess_engine
 
+import (
+	"fmt"
+	"strings"
+)
+
+const StartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 type ArrayChessBoard struct {
 	board           [BoardHeight][BoardWidth]*Piece
 	sideToMove      Color
@@ -88,50 +95,7 @@ func (cb *ArrayChessBoard) getAttackedSquares(sq Square) []Square {
 	}
 
 	if piece.Name == Rook || piece.Name == Queen {
-		currentSquare := sq
-		for currentSquare.Rank < BoardHeight {
-			currentSquare.Rank++
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
-		currentSquare = sq
-		for currentSquare.Rank >= 0 {
-			currentSquare.Rank--
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
-		currentSquare = sq
-		for currentSquare.File < BoardWidth {
-			currentSquare.File++
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
-		currentSquare = sq
-		for currentSquare.File >= 0 {
-			currentSquare.File--
-			if cb.IsOccupied(currentSquare) {
-				if cb.PieceAt(currentSquare).Color != piece.Color {
-					attackedSquares = append(attackedSquares, currentSquare)
-				}
-				break
-			}
-			attackedSquares = append(attackedSquares, currentSquare)
-		}
+		attackedSquares = cb.getHorizontallyAndVerticallyAttackedSquares(sq)
 	}
 
 	if piece.Name == King {
@@ -198,6 +162,43 @@ func (cb *ArrayChessBoard) getDiagonallyAttackedSquares(sq Square) []Square {
 	currentSquare = sq
 	for currentSquare.Rank >= 0 && currentSquare.File >= 0 {
 		currentSquare.Rank--
+		currentSquare.File--
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	return attackedSquares
+}
+
+func (cb *ArrayChessBoard) getHorizontallyAndVerticallyAttackedSquares(sq Square) []Square {
+	attackedSquares := []Square{}
+	currentSquare := sq
+	for currentSquare.Rank < BoardHeight {
+		currentSquare.Rank++
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	currentSquare = sq
+	for currentSquare.Rank >= 0 {
+		currentSquare.Rank--
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	currentSquare = sq
+	for currentSquare.File < BoardWidth {
+		currentSquare.File++
+		attackedSquares = append(attackedSquares, currentSquare)
+		if cb.IsOccupied(currentSquare) {
+			break
+		}
+	}
+	currentSquare = sq
+	for currentSquare.File >= 0 {
 		currentSquare.File--
 		attackedSquares = append(attackedSquares, currentSquare)
 		if cb.IsOccupied(currentSquare) {
@@ -304,33 +305,37 @@ func (cb *ArrayChessBoard) findKing(color Color) *Square {
 	return nil
 }
 
-func (cb *ArrayChessBoard) MakeMove(move Move) {
-	if cb.IsMoveLegal(move) {
-		cb.board[move.To.Rank][move.To.File] = cb.board[move.From.Rank][move.From.File]
-		cb.board[move.From.Rank][move.From.File] = nil
-		cb.moveHistory = append(cb.moveHistory, move)
-		cb.sideToMove = oppositeColor(cb.sideToMove)
-		if move.IsCastling {
-			if move.To.File == 2 { // Queen-side castling
-				cb.board[move.From.Rank][0] = nil
-				cb.board[move.From.Rank][3] = &Piece{Rook, cb.sideToMove}
-			} else if move.To.File == 6 { // King-side castling
-				cb.board[move.From.Rank][7] = nil
-				cb.board[move.From.Rank][5] = &Piece{Rook, cb.sideToMove}
-			}
+func (cb *ArrayChessBoard) MakeMove(move Move) error {
+	if !cb.IsMoveLegal(move) {
+		return fmt.Errorf("illegal move: %v", move)
+	}
+
+	cb.board[move.To.Rank][move.To.File] = cb.board[move.From.Rank][move.From.File]
+	cb.board[move.From.Rank][move.From.File] = nil
+	cb.moveHistory = append(cb.moveHistory, move)
+	cb.sideToMove = oppositeColor(cb.sideToMove)
+	if move.IsCastling {
+		if move.To.File == 2 { // Queen-side castling
+			cb.board[move.From.Rank][0] = nil
+			cb.board[move.From.Rank][3] = &Piece{Rook, cb.sideToMove}
+		} else if move.To.File == 6 { // King-side castling
+			cb.board[move.From.Rank][7] = nil
+			cb.board[move.From.Rank][5] = &Piece{Rook, cb.sideToMove}
 		}
-		if move.Promotion != nil {
-			cb.board[move.To.Rank][move.To.File] = move.Promotion
-		}
-		if move.IsEnPassant {
-			if cb.sideToMove == White {
-				cb.board[move.From.Rank][move.To.File] = nil
-			} else {
-				cb.board[move.From.Rank+1][move.To.File] = nil
-			}
+	}
+	if move.Promotion != nil {
+		cb.board[move.To.Rank][move.To.File] = move.Promotion
+	}
+	if move.IsEnPassant {
+		if cb.sideToMove == White {
+			cb.board[move.From.Rank][move.To.File] = nil
+		} else {
+			cb.board[move.From.Rank+1][move.To.File] = nil
 		}
 	}
 	cb.updateCastlingRights(move)
+
+	return nil
 }
 
 func (cb *ArrayChessBoard) updateCastlingRights(move Move) {
@@ -380,4 +385,168 @@ func oppositeColor(color Color) Color {
 		return Black
 	}
 	return White
+}
+
+func (cb *ArrayChessBoard) Display() string {
+	var result string
+	for rank := BoardHeight - 1; rank >= 0; rank-- {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece == nil {
+				result += ". "
+			} else {
+				result += string(piece.Name) + " "
+			}
+		}
+		result += "\n"
+	}
+	result += "\n"
+	result += fmt.Sprintf("Side to move: %s\n", cb.sideToMove)
+	result += fmt.Sprintf("Castling rights: %v\n", cb.castlingRights)
+
+	return result
+}
+
+func (cb *ArrayChessBoard) SetPosition(fen string) error {
+	// Reset the board
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			cb.board[rank][file] = nil
+		}
+	}
+
+	// Split the FEN string into parts
+	parts := strings.Split(fen, " ")
+	if len(parts) < 4 {
+		return fmt.Errorf("invalid fen string: %s", fen)
+	}
+
+	// Parse the board position
+	ranks := strings.Split(parts[0], "/")
+	if len(ranks) != BoardHeight {
+		return fmt.Errorf("invalid fen board layout: %s", parts[0])
+	}
+
+	for rank := 0; rank < BoardHeight; rank++ {
+		file := 0
+		for _, char := range ranks[BoardHeight-1-rank] {
+			if char >= '1' && char <= '8' {
+				emptySquares := int(char - '0')
+				file += emptySquares
+			} else {
+				var color Color
+				if char >= 'a' && char <= 'z' {
+					color = Black
+				} else if char >= 'A' && char <= 'Z' {
+					color = White
+				} else {
+					return fmt.Errorf("invalid fen piece character: %c", char)
+				}
+
+				pieceName, err := charToPieceName(char)
+				if err != nil {
+					return err
+				}
+
+				cb.board[rank][file] = &Piece{Name: pieceName, Color: color}
+				file++
+			}
+		}
+		if file != BoardWidth {
+			return fmt.Errorf("invalid fen rank length: %s", ranks[BoardHeight-1-rank])
+		}
+	}
+
+	// Parse the side to move
+	switch parts[1] {
+	case "w":
+		cb.sideToMove = White
+	case "b":
+		cb.sideToMove = Black
+	default:
+		return fmt.Errorf("invalid fen side to move: %s", parts[1])
+	}
+
+	// Parse castling rights
+	cb.castlingRights = CastlingRights{}
+	for _, char := range parts[2] {
+		switch char {
+		case 'K':
+			cb.castlingRights.WhiteKingSide = true
+		case 'Q':
+			cb.castlingRights.WhiteQueenSide = true
+		case 'k':
+			cb.castlingRights.BlackKingSide = true
+		case 'q':
+			cb.castlingRights.BlackQueenSide = true
+		case '-':
+			// No castling rights
+		default:
+			return fmt.Errorf("invalid fen castling rights: %s", parts[2])
+		}
+	}
+
+	// Parse en passant target square
+	if parts[3] != "-" {
+		enPassantSquare, err := parseSquare(parts[3])
+		if err != nil {
+			return fmt.Errorf("invalid fen en passant square: %s", parts[3])
+		}
+		// En passant square is not stored directly in this implementation
+		_ = enPassantSquare
+	}
+
+	// Reset move history and attacked squares
+	cb.moveHistory = []Move{}
+	cb.attackedSquares = make(map[Color][]Square)
+	cb.attackedSquares[White] = []Square{}
+	cb.attackedSquares[Black] = []Square{}
+
+	// Update king squares
+	cb.kingSquares = make(map[Color]Square)
+	for rank := 0; rank < BoardHeight; rank++ {
+		for file := 0; file < BoardWidth; file++ {
+			piece := cb.board[rank][file]
+			if piece != nil && piece.Name == King {
+				cb.kingSquares[piece.Color] = Square{Rank: rank, File: file}
+			}
+		}
+	}
+
+	return nil
+}
+
+func charToPieceName(char rune) (PieceName, error) {
+	switch char {
+	case 'p', 'P':
+		return Pawn, nil
+	case 'n', 'N':
+		return Knight, nil
+	case 'b', 'B':
+		return Bishop, nil
+	case 'r', 'R':
+		return Rook, nil
+	case 'q', 'Q':
+		return Queen, nil
+	case 'k', 'K':
+		return King, nil
+	default:
+		return "", fmt.Errorf("invalid piece character: %c", char)
+	}
+}
+
+func parseSquare(square string) (Square, error) {
+	if len(square) != 2 {
+		return Square{}, fmt.Errorf("invalid square format: %s", square)
+	}
+	file := int(square[0] - 'a')
+	rank := int(square[1] - '1')
+	if file < 0 || file >= BoardWidth || rank < 0 || rank >= BoardHeight {
+		return Square{}, fmt.Errorf("square out of bounds: %s", square)
+	}
+	return Square{Rank: rank, File: file}, nil
+}
+
+func (cb *ArrayChessBoard) UndoMove() error {
+	return fmt.Errorf("UndoMove not implemented")
 }

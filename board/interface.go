@@ -50,7 +50,7 @@ type CastlingRights struct {
 }
 
 type Move struct {
-	Piece       *Piece
+	Piece       Piece
 	From        Square
 	To          Square
 	Promotion   *Piece
