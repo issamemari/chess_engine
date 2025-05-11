@@ -39,7 +39,7 @@ func (h *UCIHandler) Handle(command string) {
 		h.respond("readyok")
 
 	case "ucinewgame":
-		h.board.SetPosition(board.StartingPosition)
+		h.board = board.NewArrayChessBoard(h.logger)
 
 	case "position":
 		fen, moves, err := parsePositionCommand(tokens)

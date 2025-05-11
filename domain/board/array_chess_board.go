@@ -7,8 +7,6 @@ import (
 	logging "jesus_chess/domain/logging"
 )
 
-const StartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-
 type ArrayChessBoard struct {
 	board           [BoardHeight][BoardWidth]*Piece
 	sideToMove      Color
@@ -249,20 +247,12 @@ func (cb *ArrayChessBoard) CastlingRights() CastlingRights {
 func (cb *ArrayChessBoard) GenerateLegalMoves() []Move {
 	moves := []Move{}
 
-	cb.logger.Debug(fmt.Sprintf("Generating legal moves for side: %s", cb.sideToMove))
-
 	moves = append(moves, cb.generateLegalPawnMoves()...)
 	moves = append(moves, cb.generateLegalKnightMoves()...)
 	moves = append(moves, cb.generateLegalBishopMoves()...)
 	moves = append(moves, cb.generateLegalRookMoves()...)
 	moves = append(moves, cb.generateLegalQueenMoves()...)
 	moves = append(moves, cb.generateLegalKingMoves()...)
-
-	// log generated moves
-	for _, move := range moves {
-		cb.logger.Debug(fmt.Sprintf("generated move: %s from file %d, rank %d to file %d, rank %d", move.Piece.Name, move.From.File, move.From.Rank, move.To.File, move.To.Rank))
-	}
-
 	return moves
 }
 
@@ -287,15 +277,15 @@ func (cb *ArrayChessBoard) generateLegalPawnMoves() []Move {
 					if forward.Rank == promotionRank {
 						promotions := []PieceName{Queen, Rook, Bishop, Knight}
 						for _, promo := range promotions {
-							moves = append(moves, Move{From: from, To: forward, Piece: *piece, Promotion: &Piece{Name: promo, Color: color}})
+							moves = append(moves, Move{From: from, To: forward, Piece: *piece, Promotion: &Piece{Name: promo, Color: color}, PreviousCastlingRights: cb.castlingRights})
 						}
 					} else {
-						moves = append(moves, Move{From: from, To: forward, Piece: *piece})
+						moves = append(moves, Move{From: from, To: forward, Piece: *piece, PreviousCastlingRights: cb.castlingRights})
 					}
 					if rank == startRank {
 						twoForward := Square{Rank: rank + 2*direction, File: file}
 						if !cb.IsOccupied(twoForward) {
-							moves = append(moves, Move{From: from, To: twoForward, Piece: *piece})
+							moves = append(moves, Move{From: from, To: twoForward, Piece: *piece, PreviousCastlingRights: cb.castlingRights})
 						}
 					}
 				}
@@ -306,7 +296,7 @@ func (cb *ArrayChessBoard) generateLegalPawnMoves() []Move {
 					}
 					targetPiece := cb.PieceAt(target)
 					if targetPiece != nil && targetPiece.Color != color {
-						moves = append(moves, Move{From: from, To: target, Piece: *piece, IsCapture: true})
+						moves = append(moves, Move{From: from, To: target, Piece: *piece, CapturedPiece: targetPiece, PreviousCastlingRights: cb.castlingRights})
 					}
 				}
 			}
@@ -327,10 +317,10 @@ func (cb *ArrayChessBoard) generateLegalKnightMoves() []Move {
 					if !cb.validateAttackedSquare(to, color) {
 						continue
 					}
-					move := Move{From: from, To: to, Piece: *piece}
+					move := Move{From: from, To: to, Piece: *piece, PreviousCastlingRights: cb.castlingRights}
 					targetPiece := cb.PieceAt(to)
 					if targetPiece != nil && targetPiece.Color != color {
-						move.IsCapture = true
+						move.CapturedPiece = targetPiece
 					}
 					moves = append(moves, move)
 				}
@@ -376,10 +366,10 @@ func (cb *ArrayChessBoard) generateSlidingPieceMoves(name PieceName) []Move {
 						}
 						targetPiece := cb.PieceAt(sq)
 						if targetPiece == nil {
-							moves = append(moves, Move{From: from, To: sq, Piece: *piece})
+							moves = append(moves, Move{From: from, To: sq, Piece: *piece, PreviousCastlingRights: cb.castlingRights})
 						} else {
 							if targetPiece.Color != color {
-								moves = append(moves, Move{From: from, To: sq, Piece: *piece, IsCapture: true})
+								moves = append(moves, Move{From: from, To: sq, Piece: *piece, CapturedPiece: targetPiece, PreviousCastlingRights: cb.castlingRights})
 							}
 							break
 						}
@@ -406,7 +396,7 @@ func (cb *ArrayChessBoard) generateLegalKingMoves() []Move {
 					move := Move{From: from, To: to, Piece: *piece}
 					targetPiece := cb.PieceAt(to)
 					if targetPiece != nil && targetPiece.Color != color {
-						move.IsCapture = true
+						move.CapturedPiece = targetPiece
 					}
 					moves = append(moves, move)
 				}
@@ -424,7 +414,7 @@ func (cb *ArrayChessBoard) InCheck(color Color) bool {
 	}
 
 	for _, mv := range cb.GenerateLegalMoves() {
-		if mv.To == *kingSquare && mv.IsCapture {
+		if mv.To == *kingSquare && mv.CapturedPiece != nil && mv.CapturedPiece.Color == color {
 			return true
 		}
 	}
@@ -444,15 +434,10 @@ func (cb *ArrayChessBoard) findKing(color Color) *Square {
 }
 
 func (cb *ArrayChessBoard) MakeMove(move Move) error {
-	cb.logger.Debug(fmt.Sprintf("making move: %s from file %d, rank %d to file %d, rank %d", move.Piece.Name, move.From.File, move.From.Rank, move.To.File, move.To.Rank))
-
 	cb.board[move.To.Rank][move.To.File] = cb.board[move.From.Rank][move.From.File]
 	cb.board[move.From.Rank][move.From.File] = nil
 	cb.moveHistory = append(cb.moveHistory, move)
-
-	cb.logger.Debug(fmt.Sprintf("flipping side to move: %s", cb.sideToMove))
 	cb.sideToMove = oppositeColor(cb.sideToMove)
-	cb.logger.Debug(fmt.Sprintf("flipped side to move: %s", cb.sideToMove))
 	if move.IsCastling {
 		if move.To.File == 2 { // Queen-side castling
 			cb.board[move.From.Rank][0] = nil
@@ -682,5 +667,78 @@ func parseSquare(square string) (Square, error) {
 }
 
 func (cb *ArrayChessBoard) UndoMove() error {
-	return fmt.Errorf("UndoMove not implemented")
+	if len(cb.moveHistory) == 0 {
+		return fmt.Errorf("no moves to undo")
+	}
+
+	lastMove := cb.moveHistory[len(cb.moveHistory)-1]
+	cb.moveHistory = cb.moveHistory[:len(cb.moveHistory)-1]
+
+	// Revert the move
+	cb.board[lastMove.From.Rank][lastMove.From.File] = cb.board[lastMove.To.Rank][lastMove.To.File]
+	cb.board[lastMove.To.Rank][lastMove.To.File] = nil
+
+	// Handle captures
+	if lastMove.CapturedPiece != nil {
+		cb.board[lastMove.To.Rank][lastMove.To.File] = lastMove.CapturedPiece
+	}
+
+	// Handle promotions
+	if lastMove.Promotion != nil {
+		cb.board[lastMove.From.Rank][lastMove.From.File] = &Piece{Name: Pawn, Color: lastMove.Piece.Color}
+	}
+
+	// Handle castling
+	if lastMove.IsCastling {
+		if lastMove.To.File == 2 { // Queen-side castling
+			cb.board[lastMove.From.Rank][3] = nil
+			cb.board[lastMove.From.Rank][0] = &Piece{Rook, lastMove.Piece.Color}
+		} else if lastMove.To.File == 6 { // King-side castling
+			cb.board[lastMove.From.Rank][5] = nil
+			cb.board[lastMove.From.Rank][7] = &Piece{Rook, lastMove.Piece.Color}
+		}
+	}
+
+	// Handle en passant
+	if lastMove.IsEnPassant {
+		if lastMove.Piece.Color == White {
+			cb.board[lastMove.To.Rank-1][lastMove.To.File] = lastMove.CapturedPiece
+		} else {
+			cb.board[lastMove.To.Rank+1][lastMove.To.File] = lastMove.CapturedPiece
+		}
+	}
+
+	// Restore castling rights
+	cb.castlingRights = lastMove.PreviousCastlingRights
+
+	// Restore the side to move
+	cb.sideToMove = oppositeColor(cb.sideToMove)
+
+	return nil
+}
+
+func (cb *ArrayChessBoard) Perft(depth int) int {
+	if depth == 0 {
+		return 1
+	}
+
+	nodes := 0
+	moves := cb.GenerateLegalMoves()
+
+	for _, move := range moves {
+		err := cb.MakeMove(move)
+		if err != nil {
+			panic(fmt.Sprintf("MakeMove failed: %v", err))
+		}
+
+		if !cb.InCheck(oppositeColor(cb.sideToMove)) {
+			nodes += cb.Perft(depth - 1)
+		}
+
+		if err := cb.UndoMove(); err != nil {
+			panic(fmt.Sprintf("UndoMove failed: %v", err))
+		}
+	}
+
+	return nodes
 }

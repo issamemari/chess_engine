@@ -50,13 +50,14 @@ type CastlingRights struct {
 }
 
 type Move struct {
-	Piece       Piece
-	From        Square
-	To          Square
-	Promotion   *Piece
-	IsCastling  bool
-	IsEnPassant bool
-	IsCapture   bool
+	Piece                  Piece
+	From                   Square
+	To                     Square
+	Promotion              *Piece
+	IsCastling             bool
+	IsEnPassant            bool
+	CapturedPiece          *Piece
+	PreviousCastlingRights CastlingRights
 }
 
 type ChessBoard interface {

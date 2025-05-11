@@ -1,15 +1,21 @@
 package board
 
 import (
+	logging "jesus_chess/domain/logging"
 	"testing"
 )
 
 func TestNewArrayChessBoard(t *testing.T) {
-	cb := NewArrayChessBoard()
+	logger, err := logging.NewLogger("test.log")
+	if err != nil {
+		t.Fatalf("failed to create logger: %v", err)
+	}
+
+	cb := NewArrayChessBoard(logger)
 
 	// Validate side to move
 	if cb.sideToMove != White {
-		t.Errorf("Expected sideToMove to be White, got %v", cb.sideToMove)
+		t.Errorf("expected sideToMove to be white, got %v", cb.sideToMove)
 	}
 
 	// Validate castling rights
@@ -20,34 +26,34 @@ func TestNewArrayChessBoard(t *testing.T) {
 		BlackQueenSide: true,
 	}
 	if cb.castlingRights != expectedCastlingRights {
-		t.Errorf("Expected castling rights to be %v, got %v", expectedCastlingRights, cb.castlingRights)
+		t.Errorf("expected castling rights to be %v, got %v", expectedCastlingRights, cb.castlingRights)
 	}
 
 	// Validate king squares
 	if cb.kingSquares[White] != (Square{Rank: 0, File: 4}) {
-		t.Errorf("Expected White king square to be {0, 4}, got %v", cb.kingSquares[White])
+		t.Errorf("expected White king square to be {0, 4}, got %v", cb.kingSquares[White])
 	}
 	if cb.kingSquares[Black] != (Square{Rank: 7, File: 4}) {
-		t.Errorf("Expected Black king square to be {7, 4}, got %v", cb.kingSquares[Black])
+		t.Errorf("expected Black king square to be {7, 4}, got %v", cb.kingSquares[Black])
 	}
 
 	// Validate board initialization
 	for i := 0; i < BoardWidth; i++ {
 		if cb.board[1][i] == nil || cb.board[1][i].Name != Pawn || cb.board[1][i].Color != White {
-			t.Errorf("Expected White pawn at (1, %d), got %v", i, cb.board[1][i])
+			t.Errorf("expected white pawn at (1, %d), got %v", i, cb.board[1][i])
 		}
 		if cb.board[BoardHeight-2][i] == nil || cb.board[BoardHeight-2][i].Name != Pawn || cb.board[BoardHeight-2][i].Color != Black {
-			t.Errorf("Expected Black pawn at (%d, %d), got %v", BoardHeight-2, i, cb.board[BoardHeight-2][i])
+			t.Errorf("expected black pawn at (%d, %d), got %v", BoardHeight-2, i, cb.board[BoardHeight-2][i])
 		}
 	}
 
 	pieceNames := []PieceName{Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook}
 	for i, pieceName := range pieceNames {
 		if cb.board[0][i] == nil || cb.board[0][i].Name != pieceName || cb.board[0][i].Color != White {
-			t.Errorf("Expected White %v at (0, %d), got %v", pieceName, i, cb.board[0][i])
+			t.Errorf("expected white %v at (0, %d), got %v", pieceName, i, cb.board[0][i])
 		}
 		if cb.board[BoardHeight-1][i] == nil || cb.board[BoardHeight-1][i].Name != pieceName || cb.board[BoardHeight-1][i].Color != Black {
-			t.Errorf("Expected Black %v at (%d, %d), got %v", pieceName, BoardHeight-1, i, cb.board[BoardHeight-1][i])
+			t.Errorf("expected black %v at (%d, %d), got %v", pieceName, BoardHeight-1, i, cb.board[BoardHeight-1][i])
 		}
 	}
 
@@ -83,7 +89,7 @@ func TestNewArrayChessBoard(t *testing.T) {
 
 		for _, square := range actualSquares {
 			if !expectedSet[square] {
-				t.Errorf("Unexpected attacked square %v for color %v", square, color)
+				t.Errorf("unexpected attacked square %v for color %v", square, color)
 			}
 		}
 
@@ -96,7 +102,7 @@ func TestNewArrayChessBoard(t *testing.T) {
 				}
 			}
 			if !found {
-				t.Errorf("Expected attacked square %v for color %v not found", square, color)
+				t.Errorf("expected attacked square %v for color %v not found", square, color)
 			}
 		}
 	}
